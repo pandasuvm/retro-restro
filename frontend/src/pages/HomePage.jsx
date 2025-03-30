@@ -1,137 +1,165 @@
 // pages/HomePage.jsx
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/RetroHomePage.css';
+
+
 
 const HomePage = () => {
+  const [showIntro, setShowIntro] = useState(true);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowIntro(false);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
+  if (showIntro) {
+    return (
+      <div className="retro-intro">
+        <div className="retro-intro-content">
+          <div className="retro-logo-flicker">RETRO DINER</div>
+          <div className="retro-intro-tagline">LOADING AWESOME FOOD...</div>
+        </div>
+      </div>
+    );
+  }
+  
   return (
-    <div className="container mx-auto px-4">
+    <div className="retro-home-container">
+      <div className="retro-brick-overlay"></div>
+      
       {/* Hero Section */}
-      <section className="py-12 md:py-20">
-        <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">Welcome to Retro Diner</h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Experience the nostalgic flavors of the 80s and 90s in our retro-themed restaurant.
+      <section className="retro-hero">
+        <div className="retro-hero-content">
+          <h1 className="retro-hero-title">RETRO DINER</h1>
+          <div className="retro-hero-tagline">A BLAST FROM THE PAST</div>
+          <p className="retro-hero-description">
+            Experience the nostalgic flavors of the 80s and 90s in our totally radical restaurant
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link 
-              to="/menu" 
-              className="bg-blue-600 text-white px-6 py-3 rounded-md text-lg font-medium hover:bg-blue-700 transition-colors"
-            >
-              View Menu
-            </Link>
-            <Link 
-              to="/table-selection" 
-              className="bg-gray-200 text-gray-800 px-6 py-3 rounded-md text-lg font-medium hover:bg-gray-300 transition-colors"
-            >
-              Select Table
+          <div className="retro-hero-buttons">
+            <Link to="/table-selection" className="retro-button retro-primary-button">
+              SELECT TABLE
             </Link>
           </div>
+        </div>
+        <div className="retro-hero-neon">
+          <div className="retro-neon-sign"></div>
         </div>
       </section>
       
       {/* Featured Items */}
-      <section className="py-12 bg-gray-50 rounded-lg my-12">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold">Featured Items</h2>
-          <p className="text-gray-600 mt-2">Our most popular dishes that customers love</p>
+      <section className="retro-featured">
+        <div className="retro-section-header">
+          <h2 className="retro-section-title">FEATURED EATS</h2>
+          <div className="retro-section-underline"></div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              name: 'Classic Burger',
-              description: 'Juicy beef patty with lettuce, tomato, and our special sauce',
-              price: 8.99,
-              image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-            },
-            {
-              name: 'Cheese Fries',
-              description: 'Crispy fries topped with melted cheese and bacon bits',
-              price: 4.99,
-              image: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-            },
-            {
-              name: 'Chocolate Shake',
-              description: 'Creamy chocolate milkshake topped with whipped cream',
-              price: 3.99,
-              image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-            }
-          ].map((item, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img 
-                src={item.image} 
-                alt={item.name} 
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{item.name}</h3>
-                <p className="text-gray-600 mb-4">{item.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold">${item.price.toFixed(2)}</span>
-                  <Link 
-                    to="/menu" 
-                    className="text-blue-600 hover:text-blue-800"
-                  >
-                    View Details
-                  </Link>
-                </div>
-              </div>
+        <div className="retro-featured-grid">
+          <div className="retro-featured-item">
+            <div className="retro-featured-image burger-neon"></div>
+            <div className="retro-featured-content">
+              <h3>CLASSIC BURGER</h3>
+              <p>Juicy beef patty with lettuce, tomato, and our special sauce</p>
+              <div className="retro-price">$8.99</div>
             </div>
-          ))}
+          </div>
+          
+          <div className="retro-featured-item">
+            <div className="retro-featured-image fries-neon"></div>
+            <div className="retro-featured-content">
+              <h3>CHEESE FRIES</h3>
+              <p>Crispy fries topped with melted cheese and bacon bits</p>
+              <div className="retro-price">$4.99</div>
+            </div>
+          </div>
+          
+          <div className="retro-featured-item">
+            <div className="retro-featured-image shake-neon"></div>
+            <div className="retro-featured-content">
+              <h3>CHOCOLATE SHAKE</h3>
+              <p>Creamy chocolate milkshake topped with whipped cream</p>
+              <div className="retro-price">$3.99</div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="retro-view-more">
+          <Link to="/menu" className="retro-button retro-secondary-button">
+            VIEW FULL MENU
+          </Link>
         </div>
       </section>
       
       {/* About Section */}
-      <section className="py-12 my-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-            <p className="text-gray-600 mb-4">
-              Retro Diner was founded in 2020 with a simple mission: to bring back the nostalgic flavors and atmosphere of the 80s and 90s diners that we all loved.
+      <section className="retro-about">
+        <div className="retro-about-grid">
+          <div className="retro-about-content">
+            <h2 className="retro-section-title">OUR STORY</h2>
+            <div className="retro-section-underline"></div>
+            <p>
+              Retro Diner was founded with a simple mission: to bring back the nostalgic flavors and atmosphere of the 80s and 90s diners that we all loved.
             </p>
-            <p className="text-gray-600 mb-4">
+            <p>
               Our restaurant combines classic American comfort food with a retro aesthetic that will transport you back in time. From neon lights to vintage arcade games, we've created an immersive experience that celebrates the golden era of diners.
             </p>
-            <p className="text-gray-600">
-              Whether you're reliving memories or experiencing it for the first time, we welcome you to Retro Diner!
-            </p>
           </div>
-          <div className="bg-gray-200 h-80 rounded-lg flex items-center justify-center">
-            <span className="text-gray-500">Restaurant Image</span>
+          <div className="retro-about-image">
+            <div className="retro-polaroid">
+              <div className="retro-polaroid-image"></div>
+              <div className="retro-polaroid-caption">EST. 2020</div>
+            </div>
           </div>
         </div>
       </section>
       
       {/* Hours & Location */}
-      <section className="py-12 bg-gray-50 rounded-lg my-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4">Hours</h2>
-            <ul className="space-y-2">
-              <li className="flex justify-between">
-                <span>Monday - Friday</span>
+      <section className="retro-info">
+        <div className="retro-info-grid">
+          <div className="retro-hours">
+            <h2 className="retro-section-title">HOURS</h2>
+            <div className="retro-section-underline"></div>
+            <ul className="retro-hours-list">
+              <li>
+                <span>MONDAY - FRIDAY</span>
                 <span>11:00 AM - 10:00 PM</span>
               </li>
-              <li className="flex justify-between">
-                <span>Saturday</span>
+              <li>
+                <span>SATURDAY</span>
                 <span>10:00 AM - 11:00 PM</span>
               </li>
-              <li className="flex justify-between">
-                <span>Sunday</span>
+              <li>
+                <span>SUNDAY</span>
                 <span>10:00 AM - 9:00 PM</span>
               </li>
             </ul>
           </div>
-          <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4">Location</h2>
-            <p className="mb-2">123 Retro Street</p>
-            <p className="mb-2">Nostalgia City, NC 28801</p>
-            <p className="mb-4">Phone: (555) 123-4567</p>
-            <button className="text-blue-600 hover:text-blue-800">
-              Get Directions
-            </button>
+          
+          <div className="retro-location">
+            <h2 className="retro-section-title">FIND US</h2>
+            <div className="retro-section-underline"></div>
+            <div className="retro-address">
+              <p>123 RETRO STREET</p>
+              <p>NOSTALGIA CITY, NC 28801</p>
+              <p>PHONE: (555) 123-4567</p>
+            </div>
+            <div className="retro-map">
+              <div className="retro-map-placeholder"></div>
+            </div>
           </div>
         </div>
       </section>
+      
+      {/* Footer */}
+      <footer className="retro-footer">
+        <div className="retro-footer-content">
+          <div className="retro-footer-logo">RETRO DINER</div>
+          <div className="retro-footer-tagline">WHERE THE 80s & 90s LIVE FOREVER</div>
+          <div className="retro-footer-copyright">© 2023 RETRO DINER. ALL RIGHTS RESERVED.</div>
+        </div>
+      </footer>
     </div>
   );
 };

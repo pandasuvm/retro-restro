@@ -1,8 +1,10 @@
+// pages/OrderStatusPage.jsx
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useOrder } from '../context/orderContext';
 import { useNotification } from '../context/NotificationContext';
 import { getSocket } from '../services/SocketService';
+import '../styles/RetroOrderStatus.css';
 
 const OrderStatusPage = () => {
   const { orderId } = useParams();
@@ -67,79 +69,115 @@ const OrderStatusPage = () => {
     };
   }, [orderId, addNotification]);
 
+  const getStatusClass = (status) => {
+    switch (status) {
+      case 'Pending': return 'status-pending';
+      case 'Preparing': return 'status-preparing';
+      case 'Ready': return 'status-ready';
+      case 'Served': return 'status-served';
+      case 'Completed': return 'status-completed';
+      default: return 'status-unknown';
+    }
+  };
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="retro-order-container">
+        <div className="retro-crt-effect">
+          <div className="retro-scanlines"></div>
+          <div className="retro-loading">
+            <div className="retro-loading-text">LOADING ORDER DATA...</div>
+            <div className="retro-loading-animation">
+              <div className="retro-loading-bar"></div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-        {error}
+      <div className="retro-order-container">
+        <div className="retro-crt-effect">
+          <div className="retro-scanlines"></div>
+          <div className="retro-error">
+            <div className="retro-error-title">SYSTEM ERROR</div>
+            <div className="retro-error-message">{error}</div>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (!order) {
     return (
-      <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-        Order not found
+      <div className="retro-order-container">
+        <div className="retro-crt-effect">
+          <div className="retro-scanlines"></div>
+          <div className="retro-not-found">
+            <div className="retro-not-found-title">ORDER NOT FOUND</div>
+            <div className="retro-not-found-message">The requested order could not be located in our system.</div>
+          </div>
+        </div>
       </div>
     );
   }
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'Pending': return 'bg-yellow-500';
-      case 'Preparing': return 'bg-blue-500';
-      case 'Ready': return 'bg-green-500';
-      case 'Served': return 'bg-purple-500';
-      case 'Completed': return 'bg-gray-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Order Status</h1>
-
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-2">Order #{order?._id?.substring(0, 8) || 'N/A'}</h2>
-          <p className="text-gray-600">Table: {order?.tableNumber || 'N/A'}</p>
-          <p className="text-gray-600">Placed: {order?.createdAt ? new Date(order.createdAt).toLocaleString() : 'N/A'}</p>
-        </div>
-
-        <div className="mb-6">
-          <h3 className="font-semibold mb-2">Status</h3>
-          <div className="flex items-center">
-            <span className={`inline-block w-3 h-3 rounded-full mr-2 ${getStatusColor(order?.status)}`}></span>
-            <span className="font-medium">{order?.status || 'Unknown'}</span>
+    <div className="retro-order-container">
+      <div className="retro-crt-effect">
+        <div className="retro-scanlines"></div>
+        <div className="retro-flicker"></div>
+        
+        <div className="retro-header">
+          <div className="retro-title-container">
+            <h1 className="retro-neon-title">ORDER STATUS</h1>
           </div>
         </div>
-
-        <div className="mb-6">
-          <h3 className="font-semibold mb-2">Order Items</h3>
-          <ul className="divide-y">
-            {(order?.items || []).map((item, index) => (
-              <li key={index} className="py-2 flex justify-between">
-                <span>{item.quantity}x {item.menuItem?.name || 'Item'}</span>
-                <span>${(item.menuItem?.price * item.quantity).toFixed(2) || '0.00'}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="border-t pt-4">
-          <div className="flex justify-between font-semibold">
-            <span>Total</span>
-            <span>${order?.totalAmount?.toFixed(2) || '0.00'}</span>
+        
+        <div className="retro-order-card">
+          <div className="retro-order-header">
+            <div className="retro-order-id">ORDER #{order?._id?.substring(0, 8) || 'N/A'}</div>
+            <div className="retro-order-details">
+              <div className="retro-order-detail">TABLE: {order?.tableNumber || 'N/A'}</div>
+              <div className="retro-order-detail">PLACED: {order?.createdAt ? new Date(order.createdAt).toLocaleString() : 'N/A'}</div>
+            </div>
           </div>
-          <p className="text-gray-500 text-sm mt-1">Payment Method: {order?.paymentMethod || 'Not specified'}</p>
+          
+          <div className="retro-status-section">
+            <div className="retro-section-title">STATUS</div>
+            <div className={`retro-status-indicator ${getStatusClass(order?.status)}`}>
+              <div className="retro-status-dot"></div>
+              <div className="retro-status-text">{order?.status || 'Unknown'}</div>
+            </div>
+          </div>
+          
+          <div className="retro-items-section">
+            <div className="retro-section-title">ORDER ITEMS</div>
+            <div className="retro-items-list">
+              <div className="retro-items-header">
+                <div className="retro-item-qty">QTY</div>
+                <div className="retro-item-name">ITEM</div>
+                <div className="retro-item-price">PRICE</div>
+              </div>
+              {(order?.items || []).map((item, index) => (
+                <div key={index} className="retro-item-row">
+                  <div className="retro-item-qty">{item.quantity}x</div>
+                  <div className="retro-item-name">{item.menuItem?.name || 'Item'}</div>
+                  <div className="retro-item-price">${(item.menuItem?.price * item.quantity).toFixed(2) || '0.00'}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="retro-total-section">
+            <div className="retro-total-row">
+              <div className="retro-total-label">TOTAL</div>
+              <div className="retro-total-amount">${order?.totalAmount?.toFixed(2) || '0.00'}</div>
+            </div>
+            <div className="retro-payment-method">PAYMENT: {order?.paymentMethod || 'Not specified'}</div>
+          </div>
         </div>
       </div>
     </div>

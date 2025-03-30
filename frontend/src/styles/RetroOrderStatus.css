@@ -1,0 +1,589 @@
+/* styles/RetroOrderStatus.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+  --primary-color: #00ff00;
+  --secondary-color: #ff00ff;
+  --tertiary-color: #00ffff;
+  --danger-color: #ff0000;
+  --warning-color: #ffff00;
+  --success-color: #00ff00;
+  --info-color: #00ffff;
+  --bg-color: #000000;
+  --bg-secondary: #111111;
+  --text-color: #ffffff;
+  --border-color: #00ffff;
+}
+
+.retro-order-container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'VT323', monospace;
+  min-height: 100vh;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* CRT Effect */
+.retro-crt-effect {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.retro-scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.retro-flicker {
+  animation: flicker 0.3s infinite;
+  background: rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  opacity: 0;
+}
+
+/* Header */
+.retro-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.retro-title-container {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.retro-neon-title {
+  color: var(--secondary-color);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  text-shadow: 
+    0 0 5px var(--secondary-color),
+    0 0 10px var(--secondary-color),
+    0 0 20px var(--secondary-color);
+  animation: neon-pulse 1.5s infinite alternate;
+  margin: 0;
+  padding: 1rem 0;
+}
+
+/* Order Card */
+.retro-order-card {
+  background-color: var(--bg-secondary);
+  border: 3px solid var(--tertiary-color);
+  border-radius: 8px;
+  box-shadow: 0 0 15px var(--tertiary-color);
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  position: relative;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.retro-order-header {
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--tertiary-color);
+  padding-bottom: 1rem;
+}
+
+.retro-order-id {
+  color: var(--tertiary-color);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 5px var(--tertiary-color);
+}
+
+.retro-order-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.retro-order-detail {
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+/* Status Section */
+.retro-status-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.retro-section-title {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 5px var(--secondary-color);
+}
+
+.retro-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.retro-status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: blink 1s infinite alternate;
+}
+
+.retro-status-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Status Colors */
+.status-pending .retro-status-dot {
+  background-color: var(--warning-color);
+  box-shadow: 0 0 10px var(--warning-color);
+}
+
+.status-pending .retro-status-text {
+  color: var(--warning-color);
+  text-shadow: 0 0 5px var(--warning-color);
+}
+
+.status-preparing .retro-status-dot {
+  background-color: var(--info-color);
+  box-shadow: 0 0 10px var(--info-color);
+}
+
+.status-preparing .retro-status-text {
+  color: var(--info-color);
+  text-shadow: 0 0 5px var(--info-color);
+}
+
+.status-ready .retro-status-dot {
+  background-color: var(--success-color);
+  box-shadow: 0 0 10px var(--success-color);
+}
+
+.status-ready .retro-status-text {
+  color: var(--success-color);
+  text-shadow: 0 0 5px var(--success-color);
+}
+
+.status-served .retro-status-dot {
+  background-color: var(--secondary-color);
+  box-shadow: 0 0 10px var(--secondary-color);
+}
+
+.status-served .retro-status-text {
+  color: var(--secondary-color);
+  text-shadow: 0 0 5px var(--secondary-color);
+}
+
+.status-completed .retro-status-dot {
+  background-color: #888888;
+  box-shadow: 0 0 10px #888888;
+}
+
+.status-completed .retro-status-text {
+  color: #888888;
+  text-shadow: 0 0 5px #888888;
+}
+
+.status-unknown .retro-status-dot {
+  background-color: #888888;
+  box-shadow: 0 0 10px #888888;
+}
+
+.status-unknown .retro-status-text {
+  color: #888888;
+  text-shadow: 0 0 5px #888888;
+}
+
+/* Items Section */
+.retro-items-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.retro-items-list {
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+}
+
+.retro-items-header {
+  display: grid;
+  grid-template-columns: 60px 1fr 100px;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+  color: var(--tertiary-color);
+  font-weight: bold;
+}
+
+.retro-item-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 100px;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.retro-item-qty {
+  text-align: center;
+}
+
+.retro-item-price {
+  text-align: right;
+}
+
+/* Total Section */
+.retro-total-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--tertiary-color);
+}
+
+.retro-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.retro-total-label {
+  color: var(--tertiary-color);
+  text-shadow: 0 0 5px var(--tertiary-color);
+}
+
+.retro-total-amount {
+  color: var(--tertiary-color);
+  text-shadow: 0 0 5px var(--tertiary-color);
+}
+
+.retro-payment-method {
+  color: #888888;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Loading State */
+.retro-loading {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.retro-loading-text {
+  color: var(--tertiary-color);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px var(--tertiary-color);
+  animation: blink 1s step-end infinite;
+}
+
+.retro-loading-animation {
+  width: 80%;
+  max-width: 400px;
+  height: 20px;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--tertiary-color);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.retro-loading-bar {
+  height: 100%;
+  width: 30%;
+  background-color: var(--tertiary-color);
+  animation: loading-progress 2s infinite;
+}
+
+/* Error State */
+.retro-error, .retro-not-found {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.retro-error-title {
+  color: var(--danger-color);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px var(--danger-color);
+  animation: error-flash 1s step-end infinite;
+}
+
+.retro-menu-item-added {
+    animation: added-to-cart 0.5s ease;
+    }
+    
+    /* Animations */
+    @keyframes neon-pulse {
+    from {
+    text-shadow:
+    0 0 5px var(--secondary-color),
+    0 0 10px var(--secondary-color),
+    0 0 15px var(--secondary-color),
+    0 0 20px var(--secondary-color);
+    }
+    to {
+    text-shadow:
+    0 0 5px var(--secondary-color),
+    0 0 10px var(--secondary-color),
+    0 0 15px var(--secondary-color),
+    0 0 20px var(--secondary-color),
+    0 0 30px var(--secondary-color);
+    }
+    }
+    
+    @keyframes blink {
+    0%, 49% {
+    opacity: 1;
+    }
+    50%, 100% {
+    opacity: 0.5;
+    }
+    }
+    
+    @keyframes flicker {
+    0% { opacity: 0; }
+    5% { opacity: 0.1; }
+    10% { opacity: 0; }
+    15% { opacity: 0; }
+    20% { opacity: 0.1; }
+    25% { opacity: 0; }
+    30% { opacity: 0; }
+    35% { opacity: 0.05; }
+    40% { opacity: 0; }
+    45% { opacity: 0; }
+    50% { opacity: 0.1; }
+    55% { opacity: 0; }
+    60% { opacity: 0; }
+    65% { opacity: 0; }
+    70% { opacity: 0.05; }
+    75% { opacity: 0; }
+    80% { opacity: 0; }
+    85% { opacity: 0.1; }
+    90% { opacity: 0; }
+    95% { opacity: 0; }
+    100% { opacity: 0.1; }
+    }
+    
+    @keyframes loading-progress {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
+    }
+    
+    @keyframes error-flash {
+    0%, 49% {
+    color: var(--danger-color);
+    text-shadow: 0 0 10px var(--danger-color);
+    }
+    50%, 100% {
+    color: #ff6666;
+    text-shadow: 0 0 15px #ff6666;
+    }
+    }
+    
+    @keyframes added-to-cart {
+    0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+    50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--primary-color);
+    border-color: var(--primary-color);
+    }
+    100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+    }
+    
+    /* Glitch Effect for Hover */
+    @keyframes glitch {
+    0% {
+    clip-path: inset(40% 0 61% 0);
+    transform: translate(-20px, -10px);
+    }
+    20% {
+    clip-path: inset(92% 0 1% 0);
+    transform: translate(20px, 10px);
+    }
+    40% {
+    clip-path: inset(43% 0 1% 0);
+    transform: translate(-20px, 10px);
+    }
+    60% {
+    clip-path: inset(25% 0 58% 0);
+    transform: translate(20px, -10px);
+    }
+    80% {
+    clip-path: inset(54% 0 7% 0);
+    transform: translate(-20px, 10px);
+    }
+    100% {
+    clip-path: inset(58% 0 43% 0);
+    transform: translate(20px, -10px);
+    }
+    }
+    
+    /* Media Queries */
+    @media (max-width: 768px) {
+    .retro-neon-title {
+    font-size: 1.5rem;
+    }
+    
+    .retro-category-button {
+    font-size: 0.6rem;
+    padding: 0.4rem 0.8rem;
+    }
+    
+    .retro-menu-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    }
+    
+    .retro-menu-item-name {
+    font-size: 0.7rem;
+    }
+    
+    .retro-menu-item-price {
+    font-size: 0.7rem;
+    }
+    
+    .retro-add-button {
+    font-size: 0.7rem;
+    padding: 0.6rem;
+    }
+    }
+    
+    @media (max-width: 480px) {
+    .retro-neon-title {
+    font-size: 1.2rem;
+    }
+    
+    .retro-blink-text {
+    font-size: 1rem;
+    }
+    
+    .retro-category-selector {
+    flex-direction: column;
+    align-items: stretch;
+    }
+    
+    .retro-category-button {
+    width: 100%;
+    }
+    
+    .retro-menu-grid {
+    grid-template-columns: 1fr;
+    }
+    
+    .retro-menu-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    }
+    
+    .retro-menu-item-price {
+    align-self: flex-end;
+    }
+    }
+    
+    /* Custom Scrollbar */
+    .retro-menu-container::-webkit-scrollbar {
+    width: 10px;
+    }
+    
+    .retro-menu-container::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    }
+    
+    .retro-menu-container::-webkit-scrollbar-thumb {
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    }
+    
+    .retro-menu-container::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+    }
+    
+    /* Additional Retro Elements */
+    .retro-grid-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+    linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 9;
+    }
+    
+    /* Pixel Corners */
+    .retro-menu-item::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 10px;
+    height: 10px;
+    background-color: var(--bg-color);
+    z-index: 2;
+    }
+    
+    .retro-menu-item::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    width: 10px;
+    height: 10px;
+    background-color: var(--bg-color);
+    z-index: 2;
+    }
+    
+    

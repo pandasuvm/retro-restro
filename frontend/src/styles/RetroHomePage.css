@@ -1,0 +1,556 @@
+/* styles/RetroHomePage.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Permanent+Marker&display=swap');
+
+:root {
+  --primary-color: #ff00ff; /* Neon pink */
+  --secondary-color: #00ffff; /* Cyan */
+  --accent-color: #ffff00; /* Yellow */
+  --bg-color: #182325; /* Dark background */
+  --text-color: #ffffff;
+  --brick-color: #333333; /* Gray brick wall color */
+}
+
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+/* Intro Animation */
+.retro-intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.retro-intro-content {
+  text-align: center;
+}
+
+.retro-logo-flicker {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 3rem;
+  color: var(--primary-color);
+  text-shadow: 
+    0 0 5px var(--primary-color),
+    0 0 10px var(--primary-color),
+    0 0 20px var(--primary-color);
+  animation: flicker 2s linear infinite;
+  margin-bottom: 2rem;
+}
+
+.retro-intro-tagline {
+  font-family: 'VT323', monospace;
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  animation: blink 1s step-end infinite;
+}
+
+/* Main Container */
+.retro-home-container {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-color);
+
+}
+
+/* Brick Wall Overlay */
+.retro-brick-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/brick-wall-dark.png');
+  background-color: var(--brick-color);
+  opacity: 0.1;
+  z-index: -1;
+}
+
+/* Hero Section */
+.retro-hero {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 80vh;
+  align-items: center;
+}
+
+.retro-hero-content {
+  flex: 1;
+  min-width: 300px;
+  z-index: 2;
+  padding: 2rem;
+}
+
+.retro-hero-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  text-shadow: 
+    0 0 5px var(--primary-color),
+    0 0 10px var(--primary-color),
+    0 0 20px var(--primary-color);
+  margin-bottom: 1rem;
+  animation: neon-pulse 1.5s infinite alternate;
+}
+
+.retro-hero-tagline {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: var(--secondary-color);
+  text-shadow: 0 0 10px var(--secondary-color);
+  margin-bottom: 1.5rem;
+  transform: rotate(-2deg);
+}
+
+.retro-hero-description {
+  font-size: 1.5rem;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.retro-hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.retro-hero-neon {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.retro-neon-sign {
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  background-image: url('https://i.pinimg.com/originals/e8/c0/33/e8c033b79b17a4c7e7f566b5ddf6802a.png'); /* Replace with your neon sign image */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 10px var(--primary-color));
+}
+
+/* Buttons */
+.retro-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retro-primary-button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.retro-primary-button:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 15px var(--accent-color);
+}
+
+.retro-secondary-button {
+  background-color: var(--secondary-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 10px var(--secondary-color);
+}
+
+.retro-secondary-button:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 15px var(--secondary-color);
+}
+
+/* Section Styles */
+.retro-featured,
+.retro-about,
+.retro-info {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.retro-section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.retro-section-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  color: var(--secondary-color);
+  text-shadow: 0 0 10px var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.retro-section-underline {
+  height: 4px;
+  width: 100px;
+  background-color: var(--accent-color);
+  margin: 0 auto;
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Featured Items */
+.retro-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.retro-featured-item {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.retro-featured-item:hover {
+  transform: translateY(-10px);
+}
+
+.retro-featured-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.burger-neon {
+  background-image: url('https://i.pinimg.com/originals/e6/bb/d5/e6bbd5d895e2339b83e21fa6e6f41e95.jpg'); /* Replace with your burger neon image */
+}
+
+.fries-neon {
+  background-image: url('https://i.pinimg.com/originals/1c/e5/94/1ce594c2c88f8f15c08e3c16a9923224.jpg'); /* Replace with your fries neon image */
+}
+
+.shake-neon {
+  background-image: url('https://i.pinimg.com/originals/a3/4b/8a/a34b8a3b3a3d1f4e9e0a5c8f8f8f8f8f.jpg'); /* Replace with your shake neon image */
+}
+
+.retro-featured-content {
+  padding: 1.5rem;
+}
+
+.retro-featured-content h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.retro-featured-content p {
+  margin-bottom: 1rem;
+}
+
+.retro-price {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.retro-view-more {
+  text-align: center;
+}
+
+/* About Section */
+.retro-about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  align-items: center;
+}
+
+.retro-about-content {
+  padding: 1rem;
+}
+
+.retro-about-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.retro-about-image {
+  display: flex;
+  justify-content: center;
+}
+
+.retro-polaroid {
+  background-color: white;
+  padding: 1rem 1rem 4rem 1rem;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  transform: rotate(3deg);
+  max-width: 300px;
+}
+
+.retro-polaroid-image {
+  width: 100%;
+  height: 250px;
+  background-image: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80'); /* Replace with your diner image */
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 1rem;
+}
+
+.retro-polaroid-caption {
+  font-family: 'Permanent Marker', cursive;
+  color: #333;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Hours & Location */
+.retro-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
+.retro-hours, .retro-location {
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  }
+  
+  .retro-hours-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0 0;
+  }
+  
+  .retro-hours-list li {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed rgba(0, 255, 255, 0.3);
+    padding: 0.8rem 0;
+    font-size: 1.2rem;
+  }
+  
+  .retro-address {
+    margin: 2rem 0;
+    font-size: 1.2rem;
+  }
+  
+  .retro-address p {
+    margin: 0.5rem 0;
+  }
+  
+  .retro-map {
+    margin-top: 1.5rem;
+  }
+  
+  .retro-map-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .retro-map-placeholder::after {
+    content: 'MAP';
+    font-family: 'Press Start 2P', cursive;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+  }
+  
+  .retro-map-placeholder::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba(0, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    animation: map-scan 3s linear infinite;
+  }
+  
+  /* Footer */
+  .retro-footer {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 2px solid var(--primary-color);
+  }
+  
+  .retro-footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .retro-footer-logo {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  .retro-footer-tagline {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+  }
+  
+  .retro-footer-copyright {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+  
+  /* Animations */
+  @keyframes neon-pulse {
+    from {
+      text-shadow: 
+        0 0 5px var(--primary-color),
+        0 0 10px var(--primary-color),
+        0 0 20px var(--primary-color);
+    }
+    to {
+      text-shadow: 
+        0 0 10px var(--primary-color),
+        0 0 20px var(--primary-color),
+        0 0 30px var(--primary-color),
+        0 0 40px var(--primary-color);
+    }
+  }
+  
+  @keyframes flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+      opacity: 1;
+      text-shadow: 
+        0 0 5px var(--primary-color),
+        0 0 10px var(--primary-color),
+        0 0 20px var(--primary-color);
+    }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+      opacity: 0.4;
+      text-shadow: none;
+    }
+  }
+  
+  @keyframes blink {
+    0%, 49% {
+      opacity: 1;
+    }
+    50%, 100% {
+      opacity: 0.5;
+    }
+  }
+  
+  @keyframes map-scan {
+    0% {
+      transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+    100% {
+      transform: translateX(-50%) translateY(-50%) rotate(360deg);
+    }
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .retro-hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .retro-hero-tagline {
+      font-size: 1.5rem;
+    }
+    
+    .retro-section-title {
+      font-size: 1.5rem;
+    }
+    
+    .retro-button {
+      padding: 0.8rem 1.5rem;
+      font-size: 0.8rem;
+    }
+    
+    .retro-featured-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .retro-about-grid,
+    .retro-info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .retro-hero-title {
+      font-size: 2rem;
+    }
+    
+    .retro-hero-tagline {
+      font-size: 1.2rem;
+    }
+    
+    .retro-hero-description {
+      font-size: 1.2rem;
+    }
+    
+    .retro-featured,
+    .retro-about,
+    .retro-info {
+      padding: 2rem 1rem;
+    }
+    
+    .retro-section-title {
+      font-size: 1.2rem;
+    }
+    
+    .retro-featured-content h3 {
+      font-size: 1rem;
+    }
+    
+    .retro-price {
+      font-size: 0.8rem;
+    }
+    
+    .retro-hours-list li,
+    .retro-address {
+      font-size: 1rem;
+    }
+  }
+  

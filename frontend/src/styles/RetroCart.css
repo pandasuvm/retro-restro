@@ -1,0 +1,337 @@
+/* styles/RetroCart.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+  --primary-color: #ff00ff; /* Neon pink */
+  --secondary-color: #00ffff; /* Cyan */
+  --accent-color: #ffff00; /* Yellow */
+  --bg-color: #120024; /* Deep purple background */
+  --bg-lighter: #1e0836; /* Lighter purple for cards */
+  --text-color: #ffffff;
+  --grid-color: rgba(0, 255, 255, 0.1);
+  --danger-color: #ff0000; /* Red */
+}
+
+/* Base Styles */
+.retro-cart-container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'VT323', monospace;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 2rem 1rem;
+}
+
+/* Grid Background */
+.retro-grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+/* Cart Content */
+.retro-cart-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: rgba(30, 8, 54, 0.8);
+  border: 3px solid var(--secondary-color);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Cart Header */
+.retro-cart-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.retro-cart-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px var(--secondary-color);
+}
+
+.retro-cart-subtitle {
+  color: var(--accent-color);
+  font-size: 1.2rem;
+}
+
+/* Empty Cart */
+.retro-empty-cart {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.retro-empty-cart-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ffff'%3E%3Cpath d='M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.7;
+}
+
+.retro-empty-cart-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.retro-empty-cart-subtext {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+/* Cart Items */
+.retro-cart-items {
+  margin-bottom: 2rem;
+}
+
+.retro-cart-items-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-lighter);
+  border-top: 2px solid var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+  color: var(--accent-color);
+}
+
+.retro-cart-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 1rem;
+  border-bottom: 1px dashed rgba(0, 255, 255, 0.3);
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.retro-cart-item:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+}
+
+.retro-cart-item-name {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.retro-cart-item-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ffff'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.retro-cart-item-price {
+  font-size: 1.2rem;
+  color: var(--accent-color);
+}
+
+.retro-remove-button {
+  background-color: transparent;
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+  padding: 0.3rem 0.6rem;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retro-remove-button:hover {
+  background-color: var(--danger-color);
+  color: var(--text-color);
+  box-shadow: 0 0 10px var(--danger-color);
+}
+
+/* Cart Summary */
+.retro-cart-summary {
+  background-color: var(--bg-lighter);
+  padding: 1.5rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+}
+
+.retro-cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed rgba(0, 255, 255, 0.3);
+}
+
+.retro-cart-total-label {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+}
+
+.retro-cart-total-amount {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  text-shadow: 0 0 5px var(--accent-color);
+}
+
+.retro-cart-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.retro-button {
+  font-family: 'Press Start 2P', cursive;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.retro-primary-button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  box-shadow: 0 0 10px var(--primary-color);
+  flex: 1;
+}
+
+.retro-primary-button:hover:not(:disabled) {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 15px var(--accent-color);
+}
+
+.retro-primary-button.processing {
+  background-color: #666;
+  cursor: not-allowed;
+  animation: processing 2s infinite;
+}
+
+.retro-secondary-button {
+  background-color: var(--secondary-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 10px var(--secondary-color);
+  flex: 1;
+}
+
+.retro-secondary-button:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 15px var(--secondary-color);
+}
+
+/* Cart Note */
+.retro-cart-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: rgba(255, 255, 0, 0.1);
+  border: 1px solid var(--accent-color);
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.retro-cart-note-icon {
+  width: 24px;
+  height: 24px;
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', cursive;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Animations */
+@keyframes processing {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .retro-cart-title {
+    font-size: 1.5rem;
+  }
+  
+  .retro-cart-items-header {
+    font-size: 0.6rem;
+  }
+  
+  .retro-cart-item {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+  
+  .retro-cart-item-name {
+    font-size: 1rem;
+  }
+  
+  .retro-cart-item-price {
+    font-size: 1rem;
+  }
+  
+  .retro-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .retro-cart-content {
+    padding: 1rem;
+  }
+  
+  .retro-cart-items-header {
+    display: none;
+  }
+  
+  .retro-cart-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1rem 0;
+  }
+  
+  .retro-cart-item-price {
+    justify-self: start;
+  }
+  
+  .retro-cart-item-action {
+    justify-self: start;
+  }
+  
+  .retro-cart-actions {
+    flex-direction: column;
+  }
+}

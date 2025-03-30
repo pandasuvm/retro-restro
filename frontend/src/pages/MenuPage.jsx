@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { useNotification } from '../context/NotificationContext';
 import { fetchMenuItems } from '../services/api';
+import '../styles/RetroMenu.css';
 
 const MenuPage = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -10,6 +11,7 @@ const MenuPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
   
   const { addItem } = useCart();
   const { addNotification } = useNotification();
@@ -51,6 +53,15 @@ const MenuPage = () => {
   const handleAddToCart = (item) => {
     addItem(item);
     addNotification(`Added ${item.name} to cart`, 'success');
+    
+    // Visual feedback animation
+    const element = document.getElementById(`menu-item-${item._id}`);
+    if (element) {
+      element.classList.add('retro-menu-item-added');
+      setTimeout(() => {
+        element.classList.remove('retro-menu-item-added');
+      }, 500);
+    }
   };
   
   const filteredItems = selectedCategory === 'All' 
@@ -59,82 +70,108 @@ const MenuPage = () => {
   
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="retro-menu-container">
+        <div className="retro-crt-effect">
+          <div className="retro-scanlines"></div>
+          <div className="retro-loading">
+            <div className="retro-loading-text">LOADING MENU...</div>
+            <div className="retro-loading-animation">
+              <div className="retro-loading-bar"></div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
   
   if (error) {
     return (
-      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-        {error}
+      <div className="retro-menu-container">
+        <div className="retro-crt-effect">
+          <div className="retro-scanlines"></div>
+          <div className="retro-error">
+            <div className="retro-error-title">SYSTEM ERROR</div>
+            <div className="retro-error-message">{error}</div>
+          </div>
+        </div>
       </div>
     );
   }
   
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-8">Our Menu</h1>
-      
-      {/* Category Filter */}
-      <div className="mb-8 flex flex-wrap gap-2">
-        {categories.map(category => (
-          <button
-            key={category}
-            onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 rounded-full ${
-              selectedCategory === category 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-            } transition-colors`}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-      
-      {/* Menu Items */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredItems.map(item => (
-          <div key={item._id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            {item.image && (
-              <img 
-                src={item.image} 
-                alt={item.name} 
-                className="w-full h-48 object-cover"
-              />
-            )}
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-xl font-bold">{item.name}</h3>
-                <span className="text-green-600 font-bold">${item.price.toFixed(2)}</span>
-              </div>
-              <p className="text-gray-600 mb-4">{item.description}</p>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500">{item.category}</span>
-                <button
-                  onClick={() => handleAddToCart(item)}
-                  disabled={!item.available}
-                  className={`px-4 py-2 rounded ${
-                    item.available 
-                      ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  } transition-colors`}
-                >
-                  {item.available ? 'Add to Cart' : 'Unavailable'}
-                </button>
-              </div>
-            </div>
+    <div className="retro-menu-container">
+      <div className="retro-crt-effect">
+        <div className="retro-scanlines"></div>
+        <div className="retro-flicker"></div>
+        
+        <div className="retro-header">
+          <div className="retro-title-container">
+            <h1 className="retro-neon-title">SPACE DINER MENU</h1>
           </div>
-        ))}
-      </div>
-      
-      {filteredItems.length === 0 && (
-        <div className="bg-yellow-100 text-yellow-800 p-4 rounded-md text-center">
-          No items available in this category.
+          <div className="retro-blink-text">SELECT YOUR COSMIC CUISINE</div>
         </div>
-      )}
+        
+        {/* Category Selector */}
+        <div className="retro-category-selector">
+          {categories.map(category => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`retro-category-button ${
+                selectedCategory === category ? 'active' : ''
+              }`}
+            >
+              {category.toUpperCase()}
+            </button>
+          ))}
+        </div>
+        
+        {/* Menu Grid */}
+        <div className="retro-menu-grid">
+          {filteredItems.length === 0 ? (
+            <div className="retro-no-items">
+              <div className="retro-no-items-text">NO ITEMS AVAILABLE IN THIS CATEGORY</div>
+            </div>
+          ) : (
+            filteredItems.map(item => (
+              <div 
+                id={`menu-item-${item._id}`}
+                key={item._id} 
+                className={`retro-menu-item ${!item.available ? 'unavailable' : ''} ${activeItem === item._id ? 'active' : ''}`}
+                onClick={() => setActiveItem(activeItem === item._id ? null : item._id)}
+              >
+                <div className="retro-menu-item-header">
+                  <h3 className="retro-menu-item-name">{item.name}</h3>
+                  <div className="retro-menu-item-price">${item.price.toFixed(2)}</div>
+                </div>
+                
+                <div className="retro-menu-item-content">
+                  <p className="retro-menu-item-description">{item.description}</p>
+                  <div className="retro-menu-item-category">{item.category}</div>
+                  
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (item.available) handleAddToCart(item);
+                    }}
+                    disabled={!item.available}
+                    className={`retro-add-button ${!item.available ? 'disabled' : ''}`}
+                  >
+                    {item.available ? 'ADD TO CART' : 'SOLD OUT'}
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+        
+        {/* Retro Footer */}
+        <div className="retro-menu-footer">
+          <div className="retro-menu-footer-text">
+            INSERT COIN TO CONTINUE
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

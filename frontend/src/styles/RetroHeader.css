@@ -1,0 +1,244 @@
+/* styles/RetroHeader.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+  --primary-color: #ff00ff; /* Neon pink */
+  --secondary-color: #00ffff; /* Cyan */
+  --accent-color: #ffff00; /* Yellow */
+  --bg-color: #120024; /* Deep purple background */
+  --bg-lighter: #1e0836; /* Lighter purple for cards */
+  --text-color: #ffffff;
+}
+
+.retro-header {
+  background-color: rgba(18, 0, 36, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2px solid var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.retro-header.scrolled {
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+.retro-header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.retro-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+/* Logo */
+.retro-logo {
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+}
+
+.retro-logo-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  text-shadow: 
+    0 0 5px var(--primary-color),
+    0 0 10px var(--primary-color);
+  position: relative;
+  z-index: 2;
+}
+
+.retro-logo-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary-color);
+  filter: blur(15px);
+  opacity: 0.3;
+  z-index: 1;
+}
+
+/* Desktop Navigation */
+.retro-desktop-nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .retro-desktop-nav {
+    display: flex;
+    gap: 2rem;
+  }
+}
+
+.retro-nav-link {
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.retro-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--secondary-color);
+  transition: width 0.3s ease;
+}
+
+.retro-nav-link:hover {
+  color: var(--secondary-color);
+  text-shadow: 0 0 5px var(--secondary-color);
+}
+
+.retro-nav-link:hover::after {
+  width: 100%;
+}
+
+.retro-nav-link.active {
+  color: var(--secondary-color);
+  text-shadow: 0 0 5px var(--secondary-color);
+}
+
+.retro-nav-link.active::after {
+  width: 100%;
+  box-shadow: 0 0 10px var(--secondary-color);
+}
+
+/* Cart Badge */
+.retro-cart-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+  box-shadow: 0 0 5px var(--accent-color);
+}
+
+/* Mobile Menu Button */
+.retro-mobile-menu-button {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 101;
+}
+
+@media (min-width: 768px) {
+  .retro-mobile-menu-button {
+    display: none;
+  }
+}
+
+.retro-burger {
+  width: 30px;
+  height: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.retro-burger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: var(--secondary-color);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px var(--secondary-color);
+}
+
+.retro-burger.open span:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.retro-burger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.retro-burger.open span:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Mobile Navigation */
+.retro-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(18, 0, 36, 0.95);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 5rem;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.retro-mobile-nav.open {
+  transform: translateX(0);
+}
+
+.retro-mobile-nav-link {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.retro-mobile-nav-link:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  color: var(--secondary-color);
+}
+
+.retro-mobile-nav-link.active {
+  background-color: rgba(0, 255, 255, 0.2);
+  color: var(--secondary-color);
+  border-left: 4px solid var(--secondary-color);
+}
+
+.retro-cart-badge.mobile {
+  width: 24px;
+  height: 24px;
+  font-size: 0.7rem;
+}
+
+/* Media Queries */
+@media (max-width: 480px) {
+  .retro-logo-text {
+    font-size: 1.2rem;
+  }
+  
+  .retro-mobile-nav-link {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+}

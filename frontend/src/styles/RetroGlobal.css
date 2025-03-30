@@ -1,0 +1,162 @@
+/* styles/RetroGlobal.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+  --primary-color: #ff00ff; /* Neon pink */
+  --secondary-color: #00ffff; /* Cyan */
+  --accent-color: #ffff00; /* Yellow */
+  --bg-color: #120024; /* Deep purple background */
+  --bg-lighter: #1e0836; /* Lighter purple for cards */
+  --text-color: #ffffff;
+  --grid-color: rgba(0, 255, 255, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  overflow-x: hidden;
+}
+
+/* Base App Container */
+.retro-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Background Effects */
+.retro-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #120024 0%, #2a0a4a 100%);
+  z-index: -2;
+}
+
+.retro-grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: -1;
+  opacity: 0.3;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  animation: grid-move 60s linear infinite;
+}
+
+/* Main Content Area */
+.retro-main {
+  flex: 1;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Press Start 2P', cursive;
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+}
+
+h1 {
+  font-size: 2rem;
+  text-shadow: 0 0 10px var(--secondary-color);
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-color);
+  text-shadow: 0 0 5px var(--accent-color);
+}
+
+/* Buttons */
+button {
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+}
+
+/* Animations */
+@keyframes grid-move {
+  0% {
+    transform: translateZ(0);
+  }
+  100% {
+    transform: translateZ(50px);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .retro-main {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+  }
+  
+  h3 {
+    font-size: 1rem;
+  }
+}
