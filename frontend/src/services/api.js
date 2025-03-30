@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://retro-restro.onrender.com/api';
 
 export const fetchMenuItems = async () => {
   try {

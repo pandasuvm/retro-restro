@@ -22,6 +22,7 @@ const SoundEffects = () => {
     
     // Function to handle hover
     const handleMouseEnter = (e) => {
+        if (e.target.nodeType === 1) { 
       const isInteractive = e.target.tagName === 'BUTTON' || 
                            e.target.tagName === 'A' || 
                            e.target.closest('button') || 
@@ -31,6 +32,7 @@ const SoundEffects = () => {
       if (isInteractive) {
         playSound('hover');
       }
+    }
     };
     
     // Add event listeners

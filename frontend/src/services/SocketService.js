@@ -5,13 +5,14 @@ let socket;
 export const initializeSocket = () => {
   if (socket) return socket;
   
-  socket = io('http://localhost:3000', {
+  socket = io('https://retro-restro.onrender.com', {
     transports: ['websocket', 'polling'],
     withCredentials: true,
     reconnection: true,
     reconnectionAttempts: 5,
     reconnectionDelay: 1000
   });
+
 
   
 

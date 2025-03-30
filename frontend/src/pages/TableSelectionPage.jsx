@@ -29,7 +29,7 @@ const fetchTables = useCallback(async () => {
   try {
     setLoading(true);
     // Use the complete URL to your backend API
-    const response = await axios.get('http://localhost:3000/api/tables');
+    const response = await axios.get('https://retro-restro.onrender.com/api/tables');
     
     console.log('API Response:', response.data);
     

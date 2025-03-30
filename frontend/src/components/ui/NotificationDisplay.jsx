@@ -1,27 +1,40 @@
 // components/ui/NotificationDisplay.jsx
 import { useNotification } from '../../context/NotificationContext';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import '../../styles/RetroNotification.css';
-
-
-// Then in your component:
-{/* <audio src={audioFile} controls /> */}
-
+import notificationSound from '../../assets/retro-noti.mp3'; // If using import approach
 
 const NotificationDisplay = () => {
   const { notifications, removeNotification } = useNotification();
   const [audioEnabled] = useState(true);
+  const audioRef = useRef(new Audio('/sounds/retro-noti.mp3')); // If using public folder approach
+  // const audioRef = useRef(new Audio(notificationSound)); // If using import approach
   
+  // Play sound when notifications array changes length (new notification added)
   useEffect(() => {
-    // Play notification sound when a new notification appears
-    if (notifications.length > 0 && audioEnabled) {
-      try {
-        audioRef.current.volume = 0.3;
-        audioRef.current.play().catch(e => console.log('Audio play prevented:', e));
-      } catch (error) {
-        console.error('Error playing notification sound:', error);
+    const playNotificationSound = () => {
+      if (notifications.length > 0 && audioEnabled) {
+        try {
+          // Reset the audio to the beginning
+          audioRef.current.currentTime = 0;
+          audioRef.current.volume = 0.3;
+          
+          // Play the sound
+          const playPromise = audioRef.current.play();
+          
+          // Handle potential play() promise rejection (happens in some browsers)
+          if (playPromise !== undefined) {
+            playPromise.catch(error => {
+              console.log('Audio play prevented:', error);
+            });
+          }
+        } catch (error) {
+          console.error('Error playing notification sound:', error);
+        }
       }
-    }
+    };
+    
+    playNotificationSound();
   }, [notifications.length, audioEnabled]);
   
   if (notifications.length === 0) return null;
