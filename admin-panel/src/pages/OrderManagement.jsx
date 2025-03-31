@@ -184,7 +184,7 @@ const [ordersPerPage] = useState(5);
       <table className="retro-table">
         <thead>
           <tr>
-            <th>ORDER ID</th>
+            <th>ID</th>
             <th>TABLE</th>
             <th>ITEMS</th>
             <th>TOTAL</th>

@@ -149,7 +149,7 @@
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
   border-radius: 8px;
   margin-bottom: 30px;
-  overflow: hidden;
+  overflow-x: auto; /* Add horizontal scrolling */
   padding: 10px;
 }
 
@@ -158,6 +158,7 @@
   border-collapse: separate;
   border-spacing: 0;
   color: #00ff99;
+  table-layout: fixed; /* Fixed table layout for better control */
 }
 
 .retro-table th {
@@ -169,6 +170,43 @@
   letter-spacing: 1px;
   font-family: 'Press Start 2P', cursive;
   text-transform: uppercase;
+  white-space: nowrap; /* Prevent wrapping of header text */
+}
+
+/* Define specific column widths to control space better */
+.retro-table th:nth-child(1), .retro-table td:nth-child(1) { /* ORDER ID */
+  width: 12%;
+  min-width: 90px;
+}
+
+.retro-table th:nth-child(2), .retro-table td:nth-child(2) { /* TABLE */
+  width: 10%;
+  min-width: 80px;
+}
+
+.retro-table th:nth-child(3), .retro-table td:nth-child(3) { /* ITEMS */
+  width: 15%; /* Reduced from 30% to prevent overlapping */
+  min-width: 150px;
+}
+
+.retro-table th:nth-child(4), .retro-table td:nth-child(4) { /* TOTAL */
+  width: 12%;
+  min-width: 90px;
+}
+
+.retro-table th:nth-child(5), .retro-table td:nth-child(5) { /* STATUS */
+  width: 12%;
+  min-width: 100px;
+}
+
+.retro-table th:nth-child(6), .retro-table td:nth-child(6) { /* TIME */
+  width: 16%;
+  min-width: 120px;
+}
+
+.retro-table th:nth-child(7), .retro-table td:nth-child(7) { /* ACTIONS */
+  width: 16%;
+  min-width: 120px;
 }
 
 .retro-table td {
@@ -202,11 +240,14 @@
 .retro-items-list {
   max-height: 100px;
   overflow-y: auto;
+  word-break: break-word; /* Allow words to break if necessary */
+  max-width: 100%; /* Ensure content doesn't overflow its container */
 }
 
 .retro-item {
   margin-bottom: 4px;
   font-size: 16px;
+  white-space: normal; /* Allow text to wrap */
 }
 
 /* Total Amount */
@@ -271,16 +312,14 @@
   background-color: #000033;
   border: 2px solid #00ffff;
   color: #00ff99;
-  padding: 6px 10px;
+  padding: 6px;
   font-family: 'VT323', monospace;
   font-size: 16px;
   width: 100%;
-}
-
-.retro-status-select:focus {
-  outline: none;
-  border-color: #ff00ff;
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  max-width: 150px; /* Control the maximum width */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* No Orders */
@@ -377,4 +416,14 @@
   }
 }
 
+/* Make the table responsive */
+@media screen and (max-width: 1024px) {
+  .retro-table {
+    table-layout: auto; /* Allow browser to determine column widths on smaller screens */
+  }
   
+  .retro-items-list {
+    max-width: 200px;
+  }
+}
+
