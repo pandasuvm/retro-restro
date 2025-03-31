@@ -1,0 +1,188 @@
+/* RetroSidebar.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+.retro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.retro-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.retro-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  background: linear-gradient(135deg, #000066 0%, #330033 100%);
+  border-right: 3px solid #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  color: #00ff99;
+  z-index: 30;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.retro-sidebar.active {
+  transform: translateX(0);
+}
+
+@media (min-width: 1024px) {
+  .retro-sidebar {
+    position: sticky;
+    transform: translateX(0);
+  }
+  
+  .retro-overlay {
+    display: none;
+  }
+}
+
+.retro-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.1) 50%
+  );
+  background-size: 100% 4px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.retro-sidebar-header {
+  padding: 20px 15px;
+  border-bottom: 2px solid #00ffff;
+  text-align: center;
+}
+
+.retro-logo {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #000033;
+  border: 2px solid #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  border-radius: 4px;
+}
+
+.retro-logo-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  color: #ff00ff;
+  text-shadow: 0 0 5px #ff00ff;
+  letter-spacing: 1px;
+}
+
+.retro-sidebar-date {
+  text-align: center;
+  padding: 10px;
+  font-size: 16px;
+  color: #00ffff;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.retro-nav {
+  padding: 15px 0;
+  flex: 1;
+}
+
+.retro-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  margin: 8px 10px;
+  color: #00ff99;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.retro-nav-item:hover {
+  background-color: rgba(0, 255, 153, 0.1);
+  border-color: #00ff99;
+  box-shadow: 0 0 8px rgba(0, 255, 153, 0.3);
+}
+
+.retro-nav-item.active {
+  background-color: #000033;
+  border-color: #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  color: #ff00ff;
+}
+
+.retro-nav-item.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -20px;
+  width: 20px;
+  height: 100%;
+  background-color: rgba(255, 0, 255, 0.3);
+  box-shadow: 0 0 15px 3px rgba(255, 0, 255, 0.5);
+  animation: retro-nav-glow 1.5s infinite;
+}
+
+@keyframes retro-nav-glow {
+  0% {
+    left: -20px;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.retro-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.retro-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.retro-nav-text {
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.retro-sidebar-footer {
+  padding: 15px;
+  text-align: center;
+  border-top: 2px solid #00ffff;
+  font-size: 14px;
+  color: #00ffff;
+}
+
+.retro-version {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  letter-spacing: 1px;
+}

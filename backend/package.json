@@ -8,6 +8,7 @@
     "dev": "nodemon server.js",
     "build": "esbuild server.js --bundle --platform=node --outfile=dist/server.js",
     "serve": "node dist/server.js"
+    
   },
   "keywords": [],
   "author": "",

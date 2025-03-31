@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../styles/RetroOrderManagement.css';
 
 const OrderManagement = ({ apiUrl, socket }) => {
   const [orders, setOrders] = useState([]);
@@ -8,6 +9,8 @@ const OrderManagement = ({ apiUrl, socket }) => {
   const [error, setError] = useState(null);
   const [statusFilter, setStatusFilter] = useState('all');
   const [tableFilter, setTableFilter] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+const [ordersPerPage] = useState(5);
   
   const fetchOrders = async () => {
     try {
@@ -98,156 +101,176 @@ const OrderManagement = ({ apiUrl, socket }) => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
   
-  if (loading) return <div className="flex justify-center items-center h-full">Loading...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
+  if (loading) return (
+    <div className="retro-order-management-container">
+      <div className="retro-loading">
+        <div className="retro-loading-text">LOADING ORDERS...</div>
+        <div className="retro-loading-bar"></div>
+      </div>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="retro-order-management-container">
+      <div className="retro-error">
+        <div className="retro-error-title">SYSTEM ERROR</div>
+        <div className="retro-error-message">{error}</div>
+      </div>
+    </div>
+  );
   
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">Order Management</h1>
+    <div className="retro-order-management-container">
+      <div className="retro-scanlines"></div>
+      <div className="retro-flicker"></div>
       
-      <div className="bg-white rounded-lg shadow p-6 mb-6">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-col sm:flex-row sm:items-center mb-4 md:mb-0">
-            <div className="mr-4 mb-2 sm:mb-0">
-              <label htmlFor="statusFilter" className="block text-sm font-medium text-gray-700 mb-1">
-                Filter by Status
-              </label>
-              <select
-                id="statusFilter"
-                value={statusFilter}
-                onChange={handleStatusFilterChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="all">All Orders</option>
-                <option value="Pending">Pending</option>
-                <option value="Preparing">Preparing</option>
-                <option value="Ready">Ready</option>
-                <option value="Served">Served</option>
-                <option value="Completed">Completed</option>
-              </select>
-            </div>
-            
-            <div>
-              <label htmlFor="tableFilter" className="block text-sm font-medium text-gray-700 mb-1">
-                Filter by Table
-              </label>
-              <input
-                type="text"
-                id="tableFilter"
-                value={tableFilter}
-                onChange={handleTableFilterChange}
-                placeholder="Table Number"
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
+      <div className="retro-order-management-header">
+        <h1 className="retro-title">ORDER CONTROL TERMINAL</h1>
+        <div className="retro-date">{new Date().toLocaleDateString('en-US', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        })}</div>
+      </div>
+      
+      <div className="retro-filter-panel">
+        <div className="retro-filter-grid">
+          <div className="retro-filter-group">
+            <label className="retro-filter-label">STATUS FILTER:</label>
+            <select
+              value={statusFilter}
+              onChange={handleStatusFilterChange}
+              className="retro-filter-select"
+            >
+              <option value="all">ALL ORDERS</option>
+              <option value="Pending">PENDING</option>
+              <option value="Preparing">PREPARING</option>
+              <option value="Ready">READY</option>
+              <option value="Served">SERVED</option>
+              <option value="Completed">COMPLETED</option>
+            </select>
           </div>
           
-          <div>
+          <div className="retro-filter-group">
+            <label className="retro-filter-label">TABLE FILTER:</label>
+            <input
+              type="text"
+              value={tableFilter}
+              onChange={handleTableFilterChange}
+              placeholder="ENTER TABLE #"
+              className="retro-filter-input"
+            />
+          </div>
+          
+          <div className="retro-filter-actions">
             <button
               onClick={fetchOrders}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="retro-refresh-button"
             >
-              <svg className="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              Refresh
+              <span className="retro-refresh-icon">↻</span>
+              REFRESH DATA
             </button>
           </div>
         </div>
       </div>
-      
       {filteredOrders.length === 0 ? (
-        <div className="bg-white rounded-lg shadow p-6 text-center text-gray-500">
-          No orders found matching your filters.
-        </div>
-      ) : (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Order ID
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Table
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Items
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Total
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Time
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filteredOrders.map((order) => (
-                  <tr key={order._id}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{order._id.substring(0, 8)}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">Table {order.tableNumber}</div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900">
-                        <ul className="list-disc list-inside">
-                        {order.items.map((item, index) => (
-  <li key={index}>
-    {item.quantity} x {(item.menuItem && item.menuItem.name) ? item.menuItem.name : 'Unknown Item'}
-  </li>
-))}
-
-                        </ul>
+  <div className="retro-no-orders">
+    <div className="retro-no-orders-text">NO ORDERS FOUND MATCHING FILTERS</div>
+  </div>
+) : (
+  <>
+    <div className="retro-table-container">
+      <table className="retro-table">
+        <thead>
+          <tr>
+            <th>ORDER ID</th>
+            <th>TABLE</th>
+            <th>ITEMS</th>
+            <th>TOTAL</th>
+            <th>STATUS</th>
+            <th>TIME</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredOrders
+            .slice((currentPage - 1) * ordersPerPage, currentPage * ordersPerPage)
+            .map((order) => (
+              <tr key={order._id}>
+                <td>
+                  <div className="retro-order-id">{order._id.substring(0, 8)}</div>
+                </td>
+                <td>
+                  <div className="retro-table-number">TABLE {order.tableNumber}</div>
+                </td>
+                <td>
+                  <div className="retro-items-list">
+                    {order.items.map((item, index) => (
+                      <div key={index} className="retro-item">
+                        {item.quantity} x {(item.menuItem && item.menuItem.name) ? item.menuItem.name : 'UNKNOWN ITEM'}
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">${order.totalAmount.toFixed(2)}</div>
-                      <div className="text-xs text-gray-500">{order.paymentMethod || 'Not paid'}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
-                        ${order.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 
-                          order.status === 'Preparing' ? 'bg-blue-100 text-blue-800' : 
-                          order.status === 'Ready' ? 'bg-green-100 text-green-800' : 
-                          order.status === 'Served' ? 'bg-purple-100 text-purple-800' : 
-                          'bg-gray-100 text-gray-800'}`}
-                      >
-                        {order.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{formatDate(order.createdAt)}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <select
-                        value={order.status}
-                        onChange={(e) => handleStatusUpdate(order._id, e.target.value)}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        <option value="Pending">Pending</option>
-                        <option value="Preparing">Preparing</option>
-                        <option value="Ready">Ready</option>
-                        <option value="Served">Served</option>
-                        <option value="Completed">Completed</option>
-                      </select>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+                    ))}
+                  </div>
+                </td>
+                <td>
+                  <div className="retro-total-amount">${order.totalAmount.toFixed(2)}</div>
+                  <div className="retro-payment-method">{order.paymentMethod || 'NOT PAID'}</div>
+                </td>
+                <td>
+                  <span className={`retro-status retro-status-${order.status.toLowerCase()}`}>
+                    {order.status}
+                  </span>
+                </td>
+                <td>
+                  <div className="retro-order-time">{formatDate(order.createdAt)}</div>
+                </td>
+                <td>
+                  <select
+                    value={order.status}
+                    onChange={(e) => handleStatusUpdate(order._id, e.target.value)}
+                    className="retro-status-select"
+                  >
+                    <option value="Pending">PENDING</option>
+                    <option value="Preparing">PREPARING</option>
+                    <option value="Ready">READY</option>
+                    <option value="Served">SERVED</option>
+                    <option value="Completed">COMPLETED</option>
+                  </select>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </div>
+    
+    <div className="retro-pagination">
+      <button 
+        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+        disabled={currentPage === 1}
+        className="retro-pagination-button"
+      >
+        PREV
+      </button>
+      
+      <div className="retro-page-info">
+        PAGE {currentPage} OF {Math.ceil(filteredOrders.length / ordersPerPage)}
+      </div>
+      
+      <button 
+        onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(filteredOrders.length / ordersPerPage)))}
+        disabled={currentPage >= Math.ceil(filteredOrders.length / ordersPerPage)}
+        className="retro-pagination-button"
+      >
+        NEXT
+      </button>
+    </div>
+  </>
+)}
+      
+      <div className="retro-order-management-footer">
+        <div className="retro-footer-text">SPACE DINER ORDER MANAGEMENT v1.0</div>
+      </div>
     </div>
   );
 };

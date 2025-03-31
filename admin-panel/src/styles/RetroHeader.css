@@ -1,0 +1,228 @@
+/* Retro Header Styles */
+.retro-header {
+    background-color: #000033;
+    border-bottom: 2px solid #00ffff;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .retro-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .retro-header-left, .retro-header-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .retro-menu-toggle {
+    background: transparent;
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .retro-menu-toggle:hover {
+    background-color: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+  
+  .retro-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+  
+  .retro-notification-container {
+    position: relative;
+    margin-right: 20px;
+  }
+  
+  .retro-notification-button {
+    background-color: #330033;
+    border: 2px solid #ff00ff;
+    color: #ff00ff;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .retro-notification-button:hover {
+    background-color: #440044;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  }
+  
+  .retro-notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #00ffff;
+    color: #000033;
+    font-size: 12px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'VT323', monospace;
+  }
+  
+  .retro-notification-panel {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 300px;
+    background: linear-gradient(135deg, #000066 0%, #330033 100%);
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    z-index: 20;
+  }
+  
+  .retro-notification-header {
+    background-color: #000066;
+    color: #00ffff;
+    padding: 10px 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    border-bottom: 2px solid #00ffff;
+  }
+  
+  .retro-notification-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  }
+  
+  .retro-notification-message {
+    color: #00ff99;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    margin: 0 0 5px 0;
+  }
+  
+  .retro-notification-time {
+    color: #00ffff;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .retro-notification-empty {
+    padding: 15px;
+    text-align: center;
+    color: #00ff99;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+  }
+  
+  .retro-notification-action {
+    padding: 10px;
+    text-align: center;
+    color: #ff00ff;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .retro-notification-action:hover {
+    background-color: rgba(255, 0, 255, 0.2);
+  }
+  
+  .retro-user {
+    display: flex;
+    align-items: center;
+  }
+  
+  .retro-user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #003333;
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+  }
+  
+  .retro-user-name {
+    margin-left: 10px;
+    color: #00ffff;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+  }
+  
+  /* Responsive styles */
+  @media screen and (max-width: 767px) {
+    .hide-on-mobile {
+      display: none !important;
+    }
+    
+    .retro-title {
+      font-size: 16px;
+    }
+    
+    .retro-header-content {
+      padding: 10px;
+    }
+    
+    .retro-menu-toggle, .retro-user-avatar {
+      width: 35px;
+      height: 35px;
+      font-size: 20px;
+    }
+  }
+  
+  /* Hide menu toggle on desktop */
+.retro-menu-toggle {
+    display: none; /* Hidden by default on all screens */
+  }
+  
+  /* Show menu toggle only on mobile */
+  @media screen and (max-width: 767px) {
+    .retro-menu-toggle {
+      display: flex; /* Show on mobile screens */
+      background: transparent;
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      font-size: 24px;
+      width: 35px;
+      height: 35px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-right: 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .retro-menu-toggle:hover {
+      background-color: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+  }
+  

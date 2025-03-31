@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../styles/RetroTableManagement.css';
 
 const TableManagement = ({ apiUrl }) => {
   const [tables, setTables] = useState([]);
@@ -77,29 +78,57 @@ const TableManagement = ({ apiUrl }) => {
     }
   };
   
-  if (loading) return <div className="flex justify-center items-center h-full">Loading...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
+  if (loading) return (
+    <div className="retro-table-management-container">
+      <div className="retro-loading">
+        <div className="retro-loading-text">LOADING TABLES...</div>
+        <div className="retro-loading-bar"></div>
+      </div>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="retro-table-management-container">
+      <div className="retro-error">
+        <div className="retro-error-title">SYSTEM ERROR</div>
+        <div className="retro-error-message">{error}</div>
+      </div>
+    </div>
+  );
   
   return (
-    <div className="container mx-auto px-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-gray-800">Table Management</h1>
+    <div className="retro-table-management-container">
+      <div className="retro-scanlines"></div>
+      <div className="retro-flicker"></div>
+      
+      <div className="retro-table-management-header">
+        <h1 className="retro-title">TABLE CONFIGURATION TERMINAL</h1>
+        <div className="retro-date">{new Date().toLocaleDateString('en-US', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        })}</div>
+        
         <button
           onClick={() => setShowForm(!showForm)}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          className="retro-action-button"
         >
-          {showForm ? 'Cancel' : 'Add New Table'}
+          {showForm ? '[ CANCEL ]' : '[ ADD NEW TABLE ]'}
         </button>
       </div>
       
       {showForm && (
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Add New Table</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Table Number
+        <div className="retro-form-container">
+          <div className="retro-form-header">
+            <h2 className="retro-form-title">ADD NEW TABLE</h2>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="retro-form">
+            <div className="retro-form-grid">
+              <div className="retro-form-group">
+                <label className="retro-form-label">
+                  TABLE NUMBER:
                 </label>
                 <input
                   type="number"
@@ -108,13 +137,13 @@ const TableManagement = ({ apiUrl }) => {
                   onChange={handleInputChange}
                   required
                   min="1"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="retro-form-input"
                 />
               </div>
               
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Capacity
+              <div className="retro-form-group">
+                <label className="retro-form-label">
+                  CAPACITY:
                 </label>
                 <input
                   type="number"
@@ -123,61 +152,75 @@ const TableManagement = ({ apiUrl }) => {
                   onChange={handleInputChange}
                   required
                   min="1"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="retro-form-input"
                 />
               </div>
             </div>
             
-            <div className="mt-6 flex justify-end">
+            <div className="retro-form-actions">
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="bg-gray-200 text-gray-700 px-4 py-2 rounded mr-2"
+                className="retro-cancel-button"
               >
-                Cancel
+                [ CANCEL ]
               </button>
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                className="retro-submit-button"
               >
-                Add Table
+                [ ADD TABLE ]
               </button>
             </div>
           </form>
         </div>
       )}
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="retro-tables-grid">
         {tables.map((table) => (
-          <div key={table._id} className={`bg-white rounded-lg shadow p-4 border-l-4 ${table.isOccupied ? 'border-red-500' : 'border-green-500'}`}>
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800">Table {table.tableNumber}</h3>
-                <p className="text-sm text-gray-600">Capacity: {table.capacity} people</p>
-                <p className={`text-sm font-medium ${table.isOccupied ? 'text-red-600' : 'text-green-600'}`}>
-                  {table.isOccupied ? 'Occupied' : 'Available'}
-                </p>
-                {table.currentOrder && (
-  <p className="text-sm text-gray-600 mt-1">
-    Current Order: {table.currentOrder._id ? table.currentOrder._id.substring(0, 8) : 'N/A'}
-  </p>
-)}
-
+          <div 
+            key={table._id} 
+            className={`retro-table-card ${table.isOccupied ? 'occupied' : 'available'}`}
+          >
+            <div className="retro-table-header">
+              <div className="retro-table-number">TABLE {table.tableNumber}</div>
+              <div className={`retro-table-status ${table.isOccupied ? 'occupied' : 'available'}`}>
+                {table.isOccupied ? 'OCCUPIED' : 'AVAILABLE'}
+              </div>
+            </div>
+            
+            <div className="retro-table-content">
+              <div className="retro-table-capacity">
+                <span className="retro-capacity-label">CAPACITY:</span>
+                <span className="retro-capacity-value">{table.capacity} PEOPLE</span>
               </div>
               
-              <div>
+              {table.currentOrder && (
+                <div className="retro-table-order">
+                  <span className="retro-order-label">CURRENT ORDER:</span>
+                  <span className="retro-order-value">
+                    {table.currentOrder._id ? table.currentOrder._id.substring(0, 8) : 'N/A'}
+                  </span>
+                </div>
+              )}
+              
+              <div className="retro-table-controls">
                 <select
                   value={table.isOccupied ? 'occupied' : 'available'}
                   onChange={(e) => handleStatusUpdate(table.tableNumber, e.target.value === 'occupied')}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="retro-status-select"
                 >
-                  <option value="available">Available</option>
-                  <option value="occupied">Occupied</option>
+                  <option value="available">AVAILABLE</option>
+                  <option value="occupied">OCCUPIED</option>
                 </select>
               </div>
             </div>
           </div>
         ))}
+      </div>
+      
+      <div className="retro-table-management-footer">
+        <div className="retro-footer-text">SPACE DINER TABLE MANAGEMENT v1.0</div>
       </div>
     </div>
   );

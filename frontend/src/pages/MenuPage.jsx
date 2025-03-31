@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useNotification } from '../context/NotificationContext';
 import { fetchMenuItems } from '../services/api';
 import '../styles/RetroMenu.css';
+import { Link } from 'react-router-dom';
 
 const MenuPage = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -35,12 +36,60 @@ const MenuPage = () => {
         
         // Set dummy data for testing
         setMenuItems([
-          { _id: '1', name: 'Classic Burger', description: 'Juicy beef patty with lettuce and tomato', price: 8.99, category: 'Main', available: true },
-          { _id: '2', name: 'Cheese Fries', description: 'Crispy fries topped with melted cheese', price: 4.99, category: 'Sides', available: true },
-          { _id: '3', name: 'Chocolate Shake', description: 'Creamy chocolate milkshake', price: 3.99, category: 'Beverages', available: true },
-          { _id: '4', name: 'Veggie Burger', description: 'Plant-based patty with fresh vegetables', price: 9.99, category: 'Main', available: true },
-          { _id: '5', name: 'Onion Rings', description: 'Crispy battered onion rings', price: 3.99, category: 'Sides', available: true },
-          { _id: '6', name: 'Vanilla Shake', description: 'Creamy vanilla milkshake', price: 3.99, category: 'Beverages', available: true }
+          { 
+            _id: '1', 
+            name: 'Classic Burger', 
+            description: 'Juicy beef patty with lettuce and tomato', 
+            price: 8.99, 
+            category: 'Main', 
+            available: true,
+            image: 'https://i.imgur.com/xSjpEBF.png'
+          },
+          { 
+            _id: '2', 
+            name: 'Cheese Fries', 
+            description: 'Crispy fries topped with melted cheese', 
+            price: 4.99, 
+            category: 'Sides', 
+            available: true,
+            image: 'https://i.imgur.com/KbEwMBD.png'
+          },
+          { 
+            _id: '3', 
+            name: 'Chocolate Shake', 
+            description: 'Creamy chocolate milkshake', 
+            price: 3.99, 
+            category: 'Beverages', 
+            available: true,
+            image: 'https://i.imgur.com/vLaPz8P.png'
+          },
+          { 
+            _id: '4', 
+            name: 'Veggie Burger', 
+            description: 'Plant-based patty with fresh vegetables', 
+            price: 9.99, 
+            category: 'Main', 
+            available: true,
+            image: 'https://i.imgur.com/qRbZwdF.png'
+          },
+          { 
+            _id: '5', 
+            name: 'Onion Rings', 
+            description: 'Crispy battered onion rings', 
+            price: 3.99, 
+            category: 'Sides', 
+            available: true,
+            image: 'https://i.imgur.com/xA8e6Hs.png'
+          },
+          { 
+            _id: '6', 
+            name: 'Vanilla Shake', 
+            description: 'Creamy vanilla milkshake', 
+            price: 3.99, 
+            category: 'Beverages', 
+            available: true,
+            image: 'https://i.imgur.com/jTD5HpF.png'
+          }
         ]);
         
         setCategories(['All', 'Main', 'Sides', 'Beverages']);
@@ -140,6 +189,29 @@ const MenuPage = () => {
                 className={`retro-menu-item ${!item.available ? 'unavailable' : ''} ${activeItem === item._id ? 'active' : ''}`}
                 onClick={() => setActiveItem(activeItem === item._id ? null : item._id)}
               >
+                <div className="retro-menu-item-image-container">
+                  {item.image ? (
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      className="retro-menu-item-image" 
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = '/images/default-food.png';
+                      }}
+                    />
+                  ) : (
+                    <div className="retro-menu-item-image-placeholder">
+                      <span>NO IMAGE</span>
+                    </div>
+                  )}
+                  {!item.available && (
+                    <div className="retro-sold-out-overlay">
+                      <span>SOLD OUT</span>
+                    </div>
+                  )}
+                </div>
+                
                 <div className="retro-menu-item-header">
                   <h3 className="retro-menu-item-name">{item.name}</h3>
                   <div className="retro-menu-item-price">${item.price.toFixed(2)}</div>
@@ -164,11 +236,18 @@ const MenuPage = () => {
             ))
           )}
         </div>
+
+        <div className="retro-cart-navigation">
+          <Link to="/cart" className="retro-cart-button">
+            <div className="retro-cart-icon"></div>
+            GO TO CART
+          </Link>
+        </div>
         
         {/* Retro Footer */}
         <div className="retro-menu-footer">
           <div className="retro-menu-footer-text">
-            INSERT COIN TO CONTINUE
+            HAPPY TO KILL YOUR HUNGER!
           </div>
         </div>
       </div>

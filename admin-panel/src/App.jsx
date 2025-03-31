@@ -8,11 +8,12 @@ import OrderManagement from './pages/OrderManagement';
 import TableManagement from './pages/TableManagement';
 import axios from 'axios';
 import { io } from 'socket.io-client';
+import './styles/RetroApp.css';
 
 // API base URL
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://retro-restro.onrender.com/api';
 // Socket connection
-const socket = io('http://localhost:3000');
+const socket = io('https://retro-restro.onrender.com');
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -41,18 +42,22 @@ function App() {
   
   return (
     <Router>
-      <div className="flex h-screen bg-gray-100">
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          <main className="flex-1 overflow-y-auto p-4">
-            <Routes>
-              <Route path="/" element={<Dashboard apiUrl={API_URL} socket={socket} />} />
-              <Route path="/menu" element={<MenuManagement apiUrl={API_URL} />} />
-              <Route path="/orders" element={<OrderManagement apiUrl={API_URL} socket={socket} />} />
-              <Route path="/tables" element={<TableManagement apiUrl={API_URL} />} />
-            </Routes>
-          </main>
+      <div className="retro-app">
+        <div className="retro-scanlines"></div>
+        <div className="retro-flicker"></div>
+        <div className="retro-content">
+          <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <div className="retro-main">
+            <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+            <main className="retro-main-content">
+              <Routes>
+                <Route path="/" element={<Dashboard apiUrl={API_URL} socket={socket} />} />
+                <Route path="/menu" element={<MenuManagement apiUrl={API_URL} />} />
+                <Route path="/orders" element={<OrderManagement apiUrl={API_URL} socket={socket} />} />
+                <Route path="/tables" element={<TableManagement apiUrl={API_URL} />} />
+              </Routes>
+            </main>
+          </div>
         </div>
       </div>
     </Router>

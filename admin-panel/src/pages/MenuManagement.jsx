@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../styles/RetroMenuManagement.css';
 
 const MenuManagement = ({ apiUrl }) => {
   const [menuItems, setMenuItems] = useState([]);
@@ -112,13 +113,38 @@ const MenuManagement = ({ apiUrl }) => {
     }
   };
   
-  if (loading) return <div className="flex justify-center items-center h-full">Loading...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
+  if (loading) return (
+    <div className="retro-menu-management-container">
+      <div className="retro-loading">
+        <div className="retro-loading-text">LOADING DATA...</div>
+        <div className="retro-loading-bar"></div>
+      </div>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="retro-menu-management-container">
+      <div className="retro-error">
+        <div className="retro-error-title">SYSTEM ERROR</div>
+        <div className="retro-error-message">{error}</div>
+      </div>
+    </div>
+  );
   
   return (
-    <div className="container mx-auto px-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-gray-800">Menu Management</h1>
+    <div className="retro-menu-management-container">
+      <div className="retro-scanlines"></div>
+      <div className="retro-flicker"></div>
+      
+      <div className="retro-menu-management-header">
+        <h1 className="retro-title">MENU CONTROL PANEL</h1>
+        <div className="retro-date">{new Date().toLocaleDateString('en-US', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        })}</div>
+        
         <button
           onClick={() => {
             setCurrentItem(null);
@@ -132,22 +158,25 @@ const MenuManagement = ({ apiUrl }) => {
             });
             setShowForm(!showForm);
           }}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          className="retro-action-button"
         >
-          {showForm ? 'Cancel' : 'Add New Item'}
+          {showForm ? '[ CANCEL ]' : '[ ADD NEW ITEM ]'}
         </button>
       </div>
       
       {showForm && (
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">
-            {currentItem ? 'Edit Menu Item' : 'Add New Menu Item'}
-          </h2>
-          <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
+        <div className="retro-form-container">
+          <div className="retro-form-header">
+            <h2 className="retro-form-title">
+              {currentItem ? 'EDIT MENU ITEM' : 'ADD NEW MENU ITEM'}
+            </h2>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="retro-form">
+            <div className="retro-form-grid">
+              <div className="retro-form-group">
+                <label className="retro-form-label">
+                  NAME:
                 </label>
                 <input
                   type="text"
@@ -155,13 +184,13 @@ const MenuManagement = ({ apiUrl }) => {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="retro-form-input"
                 />
               </div>
               
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Category
+              <div className="retro-form-group">
+                <label className="retro-form-label">
+                  CATEGORY:
                 </label>
                 <input
                   type="text"
@@ -170,7 +199,7 @@ const MenuManagement = ({ apiUrl }) => {
                   onChange={handleInputChange}
                   required
                   list="categories"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="retro-form-input"
                 />
                 <datalist id="categories">
                   {categories.map((category, index) => (
@@ -179,9 +208,9 @@ const MenuManagement = ({ apiUrl }) => {
                 </datalist>
               </div>
               
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Price ($)
+              <div className="retro-form-group">
+                <label className="retro-form-label">
+                  PRICE ($):
                 </label>
                 <input
                   type="number"
@@ -191,137 +220,131 @@ const MenuManagement = ({ apiUrl }) => {
                   required
                   min="0"
                   step="0.01"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="retro-form-input"
                 />
               </div>
               
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Image URL
+              <div className="retro-form-group">
+                <label className="retro-form-label">
+                  IMAGE URL:
                 </label>
                 <input
                   type="text"
                   name="image"
                   value={formData.image}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="retro-form-input"
                 />
               </div>
               
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Description
+              <div className="retro-form-group retro-form-full">
+                <label className="retro-form-label">
+                  DESCRIPTION:
                 </label>
                 <textarea
                   name="description"
                   value={formData.description}
                   onChange={handleInputChange}
                   rows="3"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="retro-form-textarea"
                 ></textarea>
               </div>
               
-              <div className="md:col-span-2">
-                <label className="flex items-center">
+              <div className="retro-form-group retro-form-checkbox">
+                <label className="retro-checkbox-label">
                   <input
                     type="checkbox"
                     name="available"
                     checked={formData.available}
                     onChange={handleInputChange}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    className="retro-checkbox"
                   />
-                  <span className="ml-2 text-sm text-gray-700">Available</span>
+                  <span className="retro-checkbox-text">AVAILABLE</span>
                 </label>
               </div>
             </div>
             
-            <div className="mt-6 flex justify-end">
+            <div className="retro-form-actions">
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="bg-gray-200 text-gray-700 px-4 py-2 rounded mr-2"
+                className="retro-cancel-button"
               >
-                Cancel
+                [ CANCEL ]
               </button>
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                className="retro-submit-button"
               >
-                {currentItem ? 'Update Item' : 'Add Item'}
+                [ {currentItem ? 'UPDATE ITEM' : 'ADD ITEM'} ]
               </button>
             </div>
           </form>
         </div>
       )}
       
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Item
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Category
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Price
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {menuItems.map((item) => (
-                <tr key={item._id}>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                      {item.image && (
-                        <div className="flex-shrink-0 h-10 w-10">
-                          <img className="h-10 w-10 rounded-full object-cover" src={item.image} alt={item.name} />
-                        </div>
-                      )}
-                      <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">{item.name}</div>
-                        <div className="text-sm text-gray-500">{item.description?.substring(0, 50)}{item.description?.length > 50 ? '...' : ''}</div>
+      <div className="retro-table-container">
+        <table className="retro-table">
+          <thead>
+            <tr>
+              <th>ITEM</th>
+              <th>CATEGORY</th>
+              <th>PRICE</th>
+              <th>STATUS</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {menuItems.map((item) => (
+              <tr key={item._id}>
+                <td>
+                  <div className="retro-item-cell">
+                    {item.image && (
+                      <div className="retro-item-image">
+                        <img src={item.image} alt={item.name} />
                       </div>
+                    )}
+                    <div className="retro-item-info">
+                      <div className="retro-item-name">{item.name}</div>
+                      <div className="retro-item-desc">{item.description?.substring(0, 50)}{item.description?.length > 50 ? '...' : ''}</div>
                     </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{item.category}</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">${item.price.toFixed(2)}</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${item.available ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                      {item.available ? 'Available' : 'Unavailable'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  </div>
+                </td>
+                <td>
+                  <div className="retro-category">{item.category}</div>
+                </td>
+                <td>
+                  <div className="retro-price">${item.price.toFixed(2)}</div>
+                </td>
+                <td>
+                  <span className={`retro-status ${item.available ? 'retro-status-available' : 'retro-status-unavailable'}`}>
+                    {item.available ? 'AVAILABLE' : 'UNAVAILABLE'}
+                  </span>
+                </td>
+                <td>
+                  <div className="retro-actions">
                     <button
                       onClick={() => handleEdit(item)}
-                      className="text-blue-600 hover:text-blue-900 mr-4"
+                      className="retro-edit-button"
                     >
-                      Edit
+                      EDIT
                     </button>
                     <button
                       onClick={() => handleDelete(item._id)}
-                      className="text-red-600 hover:text-red-900"
+                      className="retro-delete-button"
                     >
-                      Delete
+                      DELETE
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      
+      <div className="retro-menu-management-footer">
+        <div className="retro-footer-text">SPACE DINER MENU MANAGEMENT v1.0</div>
       </div>
     </div>
   );

@@ -1,0 +1,534 @@
+/* RetroMenuManagement.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+.retro-menu-management-container {
+  background-color: #000033;
+  color: #00ff99;
+  font-family: 'VT323', monospace;
+  padding: 20px;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Retro effects */
+.retro-scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.1) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.retro-flicker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 255, 153, 0.03);
+  z-index: 11;
+  pointer-events: none;
+  animation: flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.02; }
+  100% { opacity: 0.05; }
+}
+
+/* Header */
+.retro-menu-management-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #00ff99;
+  padding-bottom: 15px;
+}
+
+.retro-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 24px;
+  color: #ff00ff;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  margin: 0;
+  letter-spacing: 2px;
+  flex: 1;
+}
+
+.retro-date {
+  font-size: 18px;
+  color: #00ffff;
+  letter-spacing: 1px;
+  margin: 10px 0;
+}
+
+.retro-action-button {
+  background: linear-gradient(to right, #ff00ff, #00ffff);
+  color: #000033;
+  border: none;
+  padding: 10px 15px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+}
+
+.retro-action-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.9);
+}
+
+/* Form */
+.retro-form-container {
+  background: linear-gradient(135deg, #000066 0%, #330033 100%);
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  border-radius: 8px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.retro-form-header {
+  background-color: #000066;
+  padding: 15px;
+  border-bottom: 2px solid #00ffff;
+}
+
+.retro-form-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  color: #00ffff;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.retro-form {
+  padding: 20px;
+}
+
+.retro-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.retro-form-full {
+  grid-column: span 2;
+}
+
+.retro-form-label {
+  display: block;
+  font-size: 18px;
+  color: #00ffff;
+  margin-bottom: 5px;
+}
+
+.retro-form-input, .retro-form-textarea {
+  width: 100%;
+  background-color: #000033;
+  border: 2px solid #00ffff;
+  color: #00ff99;
+  padding: 10px;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+.retro-form-input:focus, .retro-form-textarea:focus {
+  outline: none;
+  border-color: #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.retro-form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.retro-checkbox-label {
+  display: flex;
+  align-items: center;
+}
+
+.retro-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  appearance: none;
+  background-color: #000033;
+  border: 2px solid #00ffff;
+  position: relative;
+  cursor: pointer;
+}
+
+.retro-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background-color: #ff00ff;
+  box-shadow: 0 0 5px #ff00ff;
+}
+
+.retro-checkbox-text {
+  font-size: 18px;
+  color: #00ffff;
+}
+
+.retro-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.retro-cancel-button {
+  background-color: #330033;
+  color: #ff00ff;
+  border: 2px solid #ff00ff;
+  padding: 8px 15px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retro-cancel-button:hover {
+  background-color: #440044;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.retro-submit-button {
+  background-color: #003333;
+  color: #00ffff;
+  border: 2px solid #00ffff;
+  padding: 8px 15px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retro-submit-button:hover {
+  background-color: #004444;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* Table */
+.retro-table-container {
+    background: linear-gradient(135deg, #000066 0%, #330033 100%);
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    padding: 10px;
+  }
+  
+  .retro-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #00ff99;
+  }
+  
+  .retro-table th {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 2px solid #00ffff;
+    color: #ff00ff;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-family: 'Press Start 2P', cursive;
+    text-transform: uppercase;
+  }
+  
+  .retro-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    font-size: 18px;
+  }
+  
+  .retro-table tr:hover td {
+    background-color: rgba(0, 255, 255, 0.1);
+  }
+  /* Fix for image size */
+.retro-item-image {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border: 1px solid #00ffff;
+    margin-right: 10px;
+    flex-shrink: 0;
+    border-radius: 4px;
+  }
+  
+  .retro-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+  
+  .retro-item-cell {
+    display: flex;
+    align-items: center;
+  }
+  
+  .retro-item-info {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .retro-item-name {
+    font-weight: bold;
+    color: #ff00ff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .retro-item-desc {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+  
+  /* Fix for action buttons */
+  .retro-actions {
+    display: flex;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  
+  .retro-edit-button, 
+  .retro-delete-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .retro-edit-button {
+    color: #00ffff;
+    border-color: #00ffff;
+  }
+  
+  .retro-edit-button:hover {
+    background-color: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+  }
+  
+  .retro-delete-button {
+    color: #ff00ff;
+    border-color: #ff00ff;
+  }
+  
+  .retro-delete-button:hover {
+    background-color: rgba(255, 0, 255, 0.2);
+    box-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+  }
+  
+  /* Ensure table cells have proper spacing */
+  .retro-table td {
+    padding: 8px 10px;
+    vertical-align: middle;
+  }
+  
+  /* Make sure the table doesn't overflow */
+  .retro-table {
+    table-layout: fixed;
+  }
+  
+  .retro-table th:nth-child(1) {
+    width: 35%;
+  }
+  
+  .retro-table th:nth-child(2) {
+    width: 15%;
+  }
+  
+  .retro-table th:nth-child(3) {
+    width: 15%;
+  }
+  
+  .retro-table th:nth-child(4) {
+    width: 15%;
+  }
+  
+  .retro-table th:nth-child(5) {
+    width: 20%;
+  }
+
+  @media screen and (max-width: 767px) {
+    .retro-table, .retro-table tbody, .retro-table tr, .retro-table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .retro-table th {
+      display: none;
+    }
+  
+    .retro-table td {
+      text-align: right;
+      padding-left: 50%;
+      position: relative;
+    }
+  
+    .retro-table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      text-align: left;
+      font-weight: bold;
+      color: #00ffff;
+    }
+  
+    .retro-item-cell {@media screen and (max-width: 767px) {
+      .retro-table, .retro-table tbody, .retro-table tr, .retro-table td {
+        display: block;
+        width: 100%;
+      }
+    
+      .retro-table th {
+        display: none;
+      }
+    
+      .retro-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+      }
+    
+      .retro-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #00ffff;
+      }
+    
+      .retro-item-cell {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    
+      .retro-item-image {
+        margin-bottom: 10px;
+      }
+    
+      .retro-actions {
+        justify-content: flex-end;
+        margin-top: 10px;
+      }
+    }
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .retro-item-image {
+      margin-bottom: 10px;
+    }
+  
+    .retro-actions {
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+  }
+  /* Add these responsive utility classes to your CSS */
+.hide-on-mobile {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* Media queries for responsive behavior */
+@media screen and (max-width: 767px) {
+  /* Hide non-essential elements on mobile */
+  .hide-on-mobile {
+    display: none !important;
+  }
+  
+  /* Show mobile-only elements */
+  .mobile-only {
+    display: block;
+  }
+  
+  /* Simplify the table for mobile */
+  .retro-table {
+    table-layout: auto;
+  }
+  
+  /* Keep only essential columns visible */
+  .retro-table th:nth-child(3),
+  .retro-table th:nth-child(4),
+  .retro-table td:nth-child(3),
+  .retro-table td:nth-child(4) {
+    display: none;
+  }
+  
+  /* Make form simpler */
+  .retro-form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Reduce padding to save space */
+  .retro-menu-management-container {
+    padding: 10px;
+  }
+  
+  /* Simplify header */
+  .retro-title {
+    font-size: 18px;
+  }
+  
+  .retro-date {
+    font-size: 14px;
+  }
+}
+
+/* For very small screens */
+@media screen and (max-width: 480px) {
+  /* Further simplifications */
+  .retro-form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .retro-submit-button, .retro-cancel-button {
+    width: 100%;
+  }
+}

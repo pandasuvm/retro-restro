@@ -26,7 +26,7 @@ const CartPage = () => {
       addNotification('Order placed successfully', 'success');
       navigate(`/orders/${order._id}`);
     } catch (error) {
-      addNotification('Failed to place order', 'error');
+      addNotification('Please select table first!', 'error');
     } finally {
       setIsProcessing(false);
     }

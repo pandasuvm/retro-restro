@@ -1,0 +1,73 @@
+/* RetroApp.css */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'VT323', monospace;
+}
+
+.retro-app {
+  min-height: 100vh;
+  background-color: #000033;
+  color: #00ff99;
+  position: relative;
+  overflow: hidden;
+}
+
+.retro-scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.1) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.retro-flicker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 255, 153, 0.03);
+  z-index: 11;
+  pointer-events: none;
+  animation: flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.02; }
+  100% { opacity: 0.05; }
+}
+
+.retro-content {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.retro-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.retro-main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Add any additional global styles here */
