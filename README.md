@@ -1,7 +1,7 @@
 PACE DINER - Retro-Themed Restaurant Management System
 ======================================================
 
-![Space Diner Logo]([https://placehote](https://placehote/) restaurant management solution with a nostalgic retro-futuristic aesthetic inspired by 80s and 90s computer interfaces. Space Diner combines modern web technologies with a unique visual style to create an immersive restaurant management experience.
+ restaurant management solution with a nostalgic retro-futuristic aesthetic inspired by 80s and 90s computer interfaces. Space Diner combines modern web technologies with a unique visual style to create an immersive restaurant management experience.
 
 Features
 --------
